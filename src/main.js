@@ -27,19 +27,10 @@ function grabTicket(title) {
  * Fetches old PR description and appends Ticket link.
  *
  * @param {*} context
- * @param {number} pullNumber
  * @returns {string} Updated body string.
  */
-async function appendLinkInDescription(context, pullNumber) {
-  const response = await octokit.rest.pulls.get({
-    ...context.repo,
-    pull_number: pullNumber
-  });
-  console.log('appendLinkInDescription -> response', response);
-  console.log('appendLinkInDescription -> response', response.payload);
-  console.log('appendLinkInDescription -> response', response.pull_request);
-  console.log('appendLinkInDescription -> response', response.pull_request.body);
-  const prevBody = response.pull_request.body;
+function appendLinkInDescription(context) {
+  const prevBody = context.payload.pull_request.body;
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
   if (!ticketNumber) {
@@ -69,7 +60,7 @@ async function runMain() {
 
     const pullRequestNumber = context.payload.pull_request.number;
 
-    const updatedBody = await appendLinkInDescription(context, pullRequestNumber);
+    const updatedBody = await appendLinkInDescription(context);
 
     await octokit.rest.pulls.update({
       ...context.repo,
