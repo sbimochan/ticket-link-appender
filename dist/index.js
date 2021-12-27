@@ -8507,6 +8507,9 @@ async function runMain() {
 
     const updatedBody = await appendLinkInDescription(context);
 
+    if (!updatedBody) {
+      return;
+    }
     await octokit.rest.pulls.update({
       ...context.repo,
       pull_number: pullRequestNumber,
