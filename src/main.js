@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const core = require('@actions/core');
 const github = require('@actions/github');
 
@@ -14,6 +15,7 @@ const octokit = new github.getOctokit(githubToken);
 function grabTicket(title) {
   const ticketRegex = /^[A-Z,a-z]{2,}-\d{1,}:/g;
   const ticketIdWithColon = title.match(ticketRegex)?.[0];
+
   if (!ticketIdWithColon) {
     return null;
   }
@@ -22,18 +24,19 @@ function grabTicket(title) {
 }
 
 /**
- * Fetches old PR description and appends Ticket link
+ * Fetches old PR description and appends Ticket link.
  *
  * @param {*} context
- * @param {number} pull_number
- * @return {string} Updated body string
+ * @param {number} pullNumber
+ * @returns {string} Updated body string.
  */
-async function appendLinkInDescription(context, pull_number) {
+async function appendLinkInDescription(context, pullNumber) {
   const { body } = await octokit.rest.pulls.get({
     ...context.repo,
-    pull_number
+    pull_number: pullNumber
   });
   const ticketNumber = grabTicket(context.payload.pull_request.title);
+
   if (!ticketNumber) {
     return;
   }
@@ -44,16 +47,23 @@ async function appendLinkInDescription(context, pull_number) {
   return updatedBody;
 }
 
+/**
+ * Main entry function.
+ *
+ * @returns Void.
+ */
 async function runMain() {
   try {
     const context = github.context;
-    if (context.payload.pull_request == null) {
+
+    if (context.payload.pull_request === null) {
       core.setFailed('No pull request found.');
 
       return;
     }
-    
+
     const pullRequestNumber = context.payload.pull_request.number;
+
     const updatedBody = await appendLinkInDescription(context, pullRequestNumber);
 
     await octokit.rest.pulls.update({
@@ -61,11 +71,9 @@ async function runMain() {
       pull_number: pullRequestNumber,
       body: updatedBody
     });
-
   } catch (error) {
     core.setFailed(error.message);
   }
 }
-
 
 runMain();
