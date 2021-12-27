@@ -1,0 +1,15 @@
+name: 'Ticket link appender'
+description: 'Appends ticket link in description'
+inputs:
+  jira-project-url:
+    description: 'Link of your project URL'
+    required: true
+  GITHUB_TOKEN:
+    description: 'Automatically added token'
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+  icon: 'anchor'
+  color: 'blue'
