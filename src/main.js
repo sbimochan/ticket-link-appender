@@ -54,9 +54,9 @@ async function runMain() {
     }
     
     const pullRequestNumber = context.payload.pull_request.number;
-    await appendLinkInDescription(context, pullRequestNumber);
+    const updatedBody = await appendLinkInDescription(context, pullRequestNumber);
 
-    const updatedBody = await octokit.rest.pulls.update({
+    await octokit.rest.pulls.update({
       ...context.repo,
       pull_number: pullRequestNumber,
       body: updatedBody
