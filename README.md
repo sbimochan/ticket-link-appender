@@ -23,7 +23,7 @@ Jira Link: https://jira.atlassian.net/browse/JPT-1571
 `custom-comment` is (optional)
 
 ```yaml
-uses: sbimochan/ticket-link-appender@v1.5
+uses: sbimochan/ticket-link-appender@v1.9
   with:
     jira-project-url: https://jira.atlassian.net/browse
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Append ticket link
-        uses: sbimochan/ticket-link-appender@v1.5
+        uses: sbimochan/ticket-link-appender@v1.9
 
         with:
           jira-project-url: https://jira.atlassian.net/browse
