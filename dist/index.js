@@ -8479,6 +8479,10 @@ async function appendLinkInDescription(context, pullNumber) {
     ...context.repo,
     pull_number: pullNumber
   });
+  console.log('appendLinkInDescription -> response', response);
+  console.log('appendLinkInDescription -> response', response.payload);
+  console.log('appendLinkInDescription -> response', response.pull_request);
+  console.log('appendLinkInDescription -> response', response.pull_request.body);
   const prevBody = response.pull_request.body;
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
