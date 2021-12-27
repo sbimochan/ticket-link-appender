@@ -30,12 +30,13 @@ function grabTicket(title) {
  * @returns {string} Updated body string.
  */
 function appendLinkInDescription(context) {
-  const prevBody = context.payload.pull_request.body;
+  const prevBody = context.payload.pull_request.body || '';
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
   if (!ticketNumber) {
     return;
   }
+
   const updatedBody = `${prevBody} \n\n ----- \nJira link: ${
     jirProjectUrl + '/' + ticketNumber
   }`;
