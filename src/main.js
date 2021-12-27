@@ -31,10 +31,15 @@ function grabTicket(title) {
  * @returns {string} Updated body string.
  */
 async function appendLinkInDescription(context, pullNumber) {
-  const { body } = await octokit.rest.pulls.get({
+  console.log("appendLinkInDescription -> context", context)
+  const data = await octokit.rest.pulls.get({
     ...context.repo,
     pull_number: pullNumber
   });
+  console.log("appendLinkInDescription -> pullNumber", pullNumber)
+  console.log(data)
+  return 'jfils'
+  
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
   if (!ticketNumber) {
