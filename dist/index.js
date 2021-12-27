@@ -8477,7 +8477,7 @@ function appendLinkInDescription(context) {
   const prevBody = context.payload.pull_request.body || '';
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
-  if (!ticketNumber) {
+  if (!ticketNumber || prevBody.includes('Jira link:')) {
     return;
   }
 
