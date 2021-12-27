@@ -35,7 +35,7 @@ async function appendLinkInDescription(context, pullNumber) {
     ...context.repo,
     pull_number: pullNumber
   });
-  const prevBody = response.payload.pull_request.body;
+  const prevBody = response.pull_request.body;
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
   if (!ticketNumber) {
