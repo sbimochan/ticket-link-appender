@@ -4,6 +4,7 @@ const github = require('@actions/github');
 const jirProjectUrl = core.getInput('jira-project-url');
 const githubToken = core.getInput('GITHUB_TOKEN');
 
+const octokit = new github.getOctokit(githubToken);
 
 /**
  * Searches with first Ticket like structure with colon and later removes it.
@@ -51,7 +52,7 @@ async function runMain() {
 
       return;
     }
-    const octokit = new github.getOctokit(githubToken);
+    
     const pullRequestNumber = context.payload.pull_request.number;
     await appendLinkInDescription(context, pullRequestNumber);
 
