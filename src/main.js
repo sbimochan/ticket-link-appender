@@ -31,21 +31,17 @@ function grabTicket(title) {
  * @returns {string} Updated body string.
  */
 async function appendLinkInDescription(context, pullNumber) {
-  console.log("appendLinkInDescription -> context", context)
-  const data = await octokit.rest.pulls.get({
+  const response = await octokit.rest.pulls.get({
     ...context.repo,
     pull_number: pullNumber
   });
-  console.log("appendLinkInDescription -> pullNumber", pullNumber)
-  console.log(data)
-  return 'jfils'
-  
+  const prevBody = response.payload.pull_request.body;
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
   if (!ticketNumber) {
     return;
   }
-  const updatedBody = `${body} \n\n ----- \nJira link: ${
+  const updatedBody = `${prevBody} \n\n ----- \nJira link: ${
     jirProjectUrl + '/' + ticketNumber
   }`;
 
