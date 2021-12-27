@@ -1,0 +1,16 @@
+on: pull_request
+
+jobs:
+  example_pr_link:
+    runs-on: ubuntu-latest
+    name: Auto ticket link appender
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Append ticket link
+        uses: sbimochan/ticket-link-appender@v1.0
+        
+        with:
+          jira-project-url: https://jira.atlassian.net/browse
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
