@@ -1,6 +1,6 @@
 {
   "name": "ticket-link-appender",
-  "version": "1.0.0",
+  "version": "1.1",
   "description": "Appends jira or any other project ticket link to PR description",
   "main": "src/main.js",
   "scripts": {
