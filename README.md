@@ -20,7 +20,7 @@ Jira Link: https://jira.atlassian.net/browse/JPT-1571
 
 ## Example usage
 
-`custom-comment` is (optional)
+`GITHUB_TOKEN` will automatically be there.
 
 ```yaml
 uses: sbimochan/ticket-link-appender@v1.14
