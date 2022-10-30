@@ -8446,10 +8446,13 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 
-const jirProjectUrl = core.getInput('jira-project-url');
-const githubToken = core.getInput('GITHUB_TOKEN');
+const jirProjectUrl = core.getInput("jira-project-url");
+const ticketRegexRaw = core.getInput("ticket-regex-title");
+const githubToken = core.getInput("GITHUB_TOKEN");
 
 const octokit = new github.getOctokit(githubToken);
+
+const DEFAULT_TICKET_REGEX = /^[A-Z,a-z]{2,}-\d{1,}:/g;
 
 /**
  * Searches with first Ticket like structure with colon and later removes it.
@@ -8457,7 +8460,9 @@ const octokit = new github.getOctokit(githubToken);
  * @param {string} title
  */
 function grabTicket(title) {
-  const ticketRegex = /^[A-Z,a-z]{2,}-\d{1,}:/g;
+  const ticketRegex = ticketRegexRaw
+    ? new RegExp(ticketRegexRaw, "g")
+    : DEFAULT_TICKET_REGEX;
   const ticketIdWithColon = title.match(ticketRegex)?.[0];
 
   if (!ticketIdWithColon) {
@@ -8474,15 +8479,15 @@ function grabTicket(title) {
  * @returns {string} Updated body string.
  */
 function appendLinkInDescription(context) {
-  const prevBody = context.payload.pull_request.body || '';
+  const prevBody = context.payload.pull_request.body || "";
   const ticketNumber = grabTicket(context.payload.pull_request.title);
 
-  if (!ticketNumber || prevBody.includes('Jira link:')) {
+  if (!ticketNumber || prevBody.includes("Jira link:")) {
     return;
   }
 
   const updatedBody = `${prevBody} \n\n ----- \nJira link: ${
-    jirProjectUrl + '/' + ticketNumber
+    jirProjectUrl + "/" + ticketNumber
   }`;
 
   return updatedBody;
@@ -8498,7 +8503,7 @@ async function runMain() {
     const context = github.context;
 
     if (context.payload.pull_request === null) {
-      core.setFailed('No pull request found.');
+      core.setFailed("No pull request found.");
 
       return;
     }
