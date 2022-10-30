@@ -3,7 +3,9 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 const jirProjectUrl = core.getInput("jira-project-url");
+const ticketRegexRaw = core.getInput("ticket-regex-title");
 const githubToken = core.getInput("GITHUB_TOKEN");
+
 const octokit = new github.getOctokit(githubToken);
 
 const DEFAULT_TICKET_REGEX = /^[A-Z,a-z]{2,}-\d{1,}:/g;
@@ -14,7 +16,6 @@ const DEFAULT_TICKET_REGEX = /^[A-Z,a-z]{2,}-\d{1,}:/g;
  * @param {string} title
  */
 function grabTicket(title) {
-  const ticketRegexRaw = core.getInput("ticket-regex-title");
   const ticketRegex = ticketRegexRaw
     ? new RegExp(ticketRegexRaw, "g")
     : DEFAULT_TICKET_REGEX;
