@@ -12,6 +12,14 @@ This action automatically updates your pull request by heuristically searching t
 E.g:
 `https://jira.atlassian.net/browse`
 
+`ticket-regex-title`
+
+**Optional** You can add custom regex if your PR description seems to be different but I encourage to have same standard world wide.
+
+#### PR summary example:
+
+`XYZ-1234: This is an amazing feature`
+
 ## Outputs
 
 Appends ticket link in your PR description:
