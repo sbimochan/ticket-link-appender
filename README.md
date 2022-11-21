@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Append ticket link
-        uses: sbimochan/ticket-link-appender@v1.14
+        uses: sbimochan/ticket-link-appender@v1.15
 
         with:
           jira-project-url: https://jira.atlassian.net/browse
