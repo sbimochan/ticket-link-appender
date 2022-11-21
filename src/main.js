@@ -42,9 +42,9 @@ function appendLinkInDescription(context) {
     return;
   }
 
-  const updatedBody = `${prevBody} \n\n ----- \nJira link: ${
+  const updatedBody = `${prevBody} \n\n ----- \nJira link: <a href="${
     jirProjectUrl + "/" + ticketNumber
-  }`;
+  }" target="_blank"> Click here to visit ${ticketNumber}</a>`;
 
   return updatedBody;
 }
@@ -74,7 +74,7 @@ async function runMain() {
     await octokit.rest.pulls.update({
       ...context.repo,
       pull_number: pullRequestNumber,
-      body: updatedBody
+      body: updatedBody,
     });
   } catch (error) {
     core.setFailed(error.message);
