@@ -31,7 +31,7 @@ Jira Link: https://jira.atlassian.net/browse/JPT-1571
 `GITHUB_TOKEN` will automatically be there.
 
 ```yaml
-uses: sbimochan/ticket-link-appender@v1.15
+uses: sbimochan/ticket-link-appender@v1.16
   with:
     jira-project-url: https://jira.atlassian.net/browse
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Append ticket link
-        uses: sbimochan/ticket-link-appender@v1.15
+        uses: sbimochan/ticket-link-appender@v1.16
 
         with:
           jira-project-url: https://jira.atlassian.net/browse
