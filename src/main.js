@@ -42,9 +42,9 @@ function appendLinkInDescription(context) {
     return;
   }
 
-  const updatedBody = `${prevBody} \n\n ----- \nJira link: <a href="${
+  const updatedBody = `${prevBody} \n\n ----- \nJira link: [${ticketNumber}](${
     jirProjectUrl + "/" + ticketNumber
-  }" target="_blank"> Click here to visit ${ticketNumber}</a>`;
+  })`;
 
   return updatedBody;
 }
